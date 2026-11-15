@@ -1,0 +1,308 @@
+/* RangeBuddy site: the app's brand tokens (docs/architecture/brand.md, Original theme) laid out
+   like native iOS grouped lists. Sizes are in rem so they follow the reader's text size; on iOS
+   Safari `-apple-system-body` makes rem follow Dynamic Type. */
+
+@font-face {
+  font-family: "Merriweather";
+  src: url("fonts/merriweather-400.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Merriweather";
+  src: url("fonts/merriweather-700.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Brand colour jobs: action, text, secondary text, ground, surface, selection. */
+:root {
+  color-scheme: light dark;
+  --action: #3F6B4F;
+  --on-action: #FFFFFF;
+  --sage: #8DB09A;
+  --text: #1F2F2A;
+  --secondary: #52645A;
+  --ground: #EEF2F1;
+  --surface: #FFFFFF;
+  --selection: #B33A0A;
+  --tracer: #F05A1A;
+  --projected: #FFD60A;
+  --separator: rgba(31, 47, 42, 0.14);
+  --pill: rgba(63, 107, 79, 0.12);
+  --radius-card: 1rem;
+  --gutter: max(16px, env(safe-area-inset-left));
+  --font: "Merriweather", Georgia, "Times New Roman", serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --action: #8DB99E;
+    --on-action: #1F2F2A;
+    --sage: #8DB99E;
+    --text: #EEF2F1;
+    --secondary: #B9C8BF;
+    --ground: #1F2F2A;
+    --surface: #293C33;
+    --selection: #FF9B6B;
+    --separator: rgba(238, 242, 241, 0.16);
+    --pill: rgba(141, 185, 158, 0.16);
+  }
+}
+:root[data-theme="dark"] {
+  --action: #8DB99E;
+  --on-action: #1F2F2A;
+  --sage: #8DB99E;
+  --text: #EEF2F1;
+  --secondary: #B9C8BF;
+  --ground: #1F2F2A;
+  --surface: #293C33;
+  --selection: #FF9B6B;
+  --separator: rgba(238, 242, 241, 0.16);
+  --pill: rgba(141, 185, 158, 0.16);
+}
+/* Increase Contrast: secondary text and separators move a step towards the text colour. */
+@media (prefers-contrast: more) {
+  :root { --secondary: var(--text); --separator: rgba(31, 47, 42, 0.4); }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --separator: rgba(238, 242, 241, 0.45); }
+  }
+}
+
+@supports (font: -apple-system-body) {
+  html { font: -apple-system-body; }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 1rem;
+  line-height: 1.55;
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+}
+
+a { color: var(--action); text-underline-offset: 0.15em; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 3px solid var(--action); outline-offset: 2px; border-radius: 6px; }
+
+.skip {
+  position: absolute; left: -9999px; top: 0;
+  background: var(--surface); color: var(--text); padding: 0.75rem 1rem;
+}
+.skip:focus { left: var(--gutter); top: 0.5rem; z-index: 2; }
+
+.page {
+  max-width: 44rem;
+  margin: 0 auto;
+  padding: max(1.25rem, env(safe-area-inset-top)) max(var(--gutter), env(safe-area-inset-right))
+           max(2.5rem, env(safe-area-inset-bottom)) var(--gutter);
+}
+
+/* Banner: wordmark then logo, the golfer's feet on the wordmark's baseline (brand: home banner). */
+.banner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; }
+.brand { display: inline-flex; align-items: flex-end; gap: 0.3rem; color: var(--text); text-decoration: none; }
+.wordmark {
+  display: block;
+  height: 2rem;
+  aspect-ratio: 292.8 / 64;
+  background: currentColor;
+  -webkit-mask: url("rangebuddy-wordmark.svg") no-repeat left center / contain;
+          mask: url("rangebuddy-wordmark.svg") no-repeat left center / contain;
+}
+.brand picture, .brand img {
+  display: block;
+  height: 2.3rem; /* 1.15 × the wordmark image */
+  width: auto;
+  margin-bottom: 0.41rem; /* the wordmark's descender space (20.3 % of its height) */
+}
+
+/* A native segmented control, as links between the two pages. */
+.segmented {
+  display: inline-flex;
+  padding: 2px;
+  border-radius: 999px;
+  background: var(--pill);
+}
+.segmented a {
+  min-height: 44px;
+  min-width: 5.5rem;
+  padding: 0.5rem 1rem;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 999px;
+  color: var(--text);
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+.segmented a[aria-current="page"] {
+  background: var(--surface);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+/* Large title, like a navigation bar's. */
+.title { margin: 2rem 0 0.25rem; font-size: 2.125rem; line-height: 1.15; font-weight: 700; letter-spacing: -0.01em; }
+.lede { margin: 0 0 0.5rem; color: var(--secondary); font-size: 1.0625rem; }
+.updated { margin: 0; color: var(--secondary); font-size: 0.8125rem; }
+
+/* Inset grouped sections. */
+section { margin-top: 2rem; }
+.section-header {
+  margin: 0 0 0.5rem;
+  padding: 0 1rem;
+  color: var(--secondary);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.section-footer { margin: 0.5rem 0 0; padding: 0 1rem; color: var(--secondary); font-size: 0.8125rem; }
+.group {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background: var(--surface);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+.row {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.875rem;
+  min-height: 44px;
+  padding: 0.75rem 1rem;
+}
+/* Separators inset to the text, as in iOS lists. */
+.row + .row::before {
+  content: "";
+  position: absolute;
+  top: 0; right: 0; left: var(--separator-inset, 1rem);
+  border-top: 1px solid var(--separator);
+}
+.group.has-icons { --separator-inset: 3.75rem; }
+.row-body { flex: 1 1 auto; min-width: 0; }
+.row-title { margin: 0; font-weight: 700; }
+.row-text { margin: 0.125rem 0 0; color: var(--secondary); font-size: 0.9375rem; }
+.row-value { flex: none; color: var(--secondary); }
+.row.summary { align-items: center; }
+
+/* A rounded-square icon tile, like Settings rows. */
+.tile {
+  flex: none;
+  width: 1.875rem; height: 1.875rem;
+  margin-top: 0.1rem;
+  border-radius: 0.5rem;
+  display: grid; place-items: center;
+  background: var(--action);
+  color: var(--on-action);
+}
+.tile svg { width: 1.125rem; height: 1.125rem; }
+
+.prose { padding: 1rem; }
+.prose p { margin: 0; }
+.prose p + p, .prose ul { margin-top: 0.75rem; }
+.prose ul { padding-left: 1.25rem; margin-bottom: 0; }
+.prose li + li { margin-top: 0.375rem; }
+
+/* The highlight card that opens each page. */
+.hero { padding: 1.25rem 1rem; display: flex; gap: 1rem; align-items: center; }
+.hero img { flex: none; width: 3.5rem; height: 3.5rem; border-radius: 0.875rem; }
+.hero h2, .hero h3 { margin: 0; font-size: 1.25rem; line-height: 1.3; }
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+}
+.hero p { margin: 0.25rem 0 0; color: var(--secondary); font-size: 0.9375rem; }
+
+/* Disclosure rows for questions. */
+details.row { display: block; padding: 0; }
+details.row summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex; align-items: center; gap: 0.75rem;
+  min-height: 44px;
+  padding: 0.75rem 1rem;
+  font-weight: 700;
+}
+details.row summary::-webkit-details-marker { display: none; }
+details.row summary::after {
+  content: "";
+  flex: none;
+  margin-left: auto;
+  width: 0.55rem; height: 0.55rem;
+  border-right: 2px solid var(--secondary);
+  border-bottom: 2px solid var(--secondary);
+  transform: rotate(-45deg);
+  transition: transform 0.2s ease;
+}
+details.row[open] summary::after { transform: rotate(45deg); }
+details.row .answer { padding: 0 1rem 1rem; color: var(--secondary); font-size: 0.9375rem; }
+details.row .answer p { margin: 0; }
+details.row .answer p + p { margin-top: 0.5rem; }
+
+/* Numbered steps. */
+.step-number {
+  flex: none;
+  width: 1.875rem; height: 1.875rem;
+  border-radius: 999px;
+  display: grid; place-items: center;
+  background: var(--pill);
+  color: var(--action);
+  font-weight: 700;
+  font-size: 0.9375rem;
+  font-variant-numeric: tabular-nums;
+}
+
+/* The tracer's two colours, as in the export badge. */
+.swatch { display: inline-block; width: 1rem; height: 0.25rem; border-radius: 2px; vertical-align: middle; margin-right: 0.35rem; }
+.swatch.tracer { background: var(--tracer); }
+.swatch.projected { background: var(--projected); }
+
+/* The one primary action: a filled capsule. */
+.button {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  min-height: 50px;
+  padding: 0.75rem 1.5rem;
+  border-radius: 999px;
+  background: var(--action);
+  color: var(--on-action);
+  font-weight: 700;
+  text-decoration: none;
+}
+.button:hover { filter: brightness(1.06); text-decoration: none; }
+.actions { padding: 0 1rem 1rem; }
+
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.625rem;
+  border-radius: 999px;
+  background: var(--pill);
+  color: var(--action);
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+
+.footer {
+  margin-top: 3rem;
+  padding: 0 1rem;
+  color: var(--secondary);
+  font-size: 0.8125rem;
+  display: flex; flex-wrap: wrap; gap: 0.5rem 1.25rem; justify-content: space-between;
+}
+.footer nav { display: flex; gap: 1.25rem; }
+
+@media (max-width: 30rem) {
+  .title { font-size: 1.875rem; margin-top: 1.5rem; }
+  .segmented { width: 100%; }
+  .segmented a { flex: 1 1 0; min-width: 0; }
+  .button { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  details.row summary::after { transition: none; }
+}
