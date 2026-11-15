@@ -20,7 +20,7 @@ working.
 
 ## Before publishing
 
-- Replace `support@example.com` in `privacy/`, `support/` and `get/`.
+- Replace `keplee99@gmail.com` in `privacy/`, `support/` and `get/`.
 - Check the "Last updated" date on the privacy page.
 - `get/index.html`: leave `TARGET` empty until there is somewhere to send people; the page then
   shows "Coming soon". Set it to the App Store link at launch (with App Store Connect campaign
