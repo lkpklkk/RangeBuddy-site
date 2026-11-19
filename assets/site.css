@@ -306,3 +306,19 @@ details.row .answer p + p { margin-top: 0.5rem; }
 @media (prefers-reduced-motion: reduce) {
   details.row summary::after { transition: none; }
 }
+
+/* LiveTracer has no logo yet (brand.md): its name in Merriweather stands in for it. */
+.brand-text { font-size: 1.75rem; font-weight: 700; line-height: 1; letter-spacing: -0.01em; padding: 0.4rem 0; }
+
+/* App rows on the home page: a linked row with a chevron, like a navigation list. */
+a.row { color: var(--text); text-decoration: none; align-items: center; }
+a.row:hover .row-title { text-decoration: underline; text-underline-offset: 0.15em; }
+a.row::after {
+  content: "";
+  flex: none;
+  width: 0.5rem; height: 0.5rem;
+  border-right: 2px solid var(--secondary);
+  border-bottom: 2px solid var(--secondary);
+  transform: rotate(-45deg);
+}
+.group.links { margin-top: 0.75rem; }

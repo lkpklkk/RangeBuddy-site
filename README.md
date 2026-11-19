@@ -4,8 +4,11 @@ Static pages for RangeBuddy, hosted on GitHub Pages. No build step: the repo roo
 
 | Page | Purpose |
 |---|---|
+| `/` | Home: links to both apps' pages (the site root 404'd before this existed) |
 | `/privacy/` | App Store Connect privacy policy URL |
 | `/support/` | App Store Connect support URL |
+| `/livetracer/` | LiveTracer support URL |
+| `/livetracer/privacy/` | LiveTracer privacy policy URL (camera, microphone, motion, location, add to Photos) |
 | `/get/` | Where the QR code on shared videos leads; forwards to the App Store once `TARGET` is set |
 
 ## Publish on GitHub Pages
@@ -20,8 +23,8 @@ working.
 
 ## Before publishing
 
-- The support address (`keplee99@gmail.com`) appears in `privacy/`, `support/` and `get/`;
-  change all three together.
+- The support address (`keplee99@gmail.com`) appears in every page;
+  change them together.
 - Check the "Last updated" date on the privacy page.
 - `get/index.html`: leave `TARGET` empty until there is somewhere to send people; the page then
   shows "Coming soon". Set it to the App Store link at launch (with App Store Connect campaign
@@ -31,7 +34,7 @@ working.
   `badgeLine` should change with it.
 - Re-check the privacy page whenever the app adds a permission, network access or in-app
   purchases. It describes RangeBuddy only (camera, microphone, motion, add to Photos; no network
-  code, account or analytics). LiveTracer also asks for location and needs its own page.
+  code, account or analytics). LiveTracer has its own page at `livetracer/privacy/`, which also covers location.
 
 ## Where things come from
 
